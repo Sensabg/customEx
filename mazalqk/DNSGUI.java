@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import org.xbill.DNS.TextParseException;
 
 public class DNSGUI extends JFrame {
-    private JTextPane outputArea; // Changed to JTextPane
+    private JTextPane outputArea; 
     private JTextField domainField;
     private JComboBox<String> typeComboBox;
 
@@ -42,21 +42,20 @@ public class DNSGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        outputArea = new JTextPane(); // Initialize as JTextPane
+        outputArea = new JTextPane(); 
         outputArea.setEditable(false);
-        outputArea.setBackground(Color.BLACK); // Set background color to black
-        outputArea.setForeground(Color.WHITE); // Set default text color to white
+        outputArea.setBackground(Color.BLACK); 
+        outputArea.setForeground(Color.WHITE);
 
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
 
         System.setOut(new PrintStream(new TextAreaOutputStream(outputArea)));
-
-        // Key binding for the Enter key
+        
         inputPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "lookupAction");
         inputPanel.getActionMap().put("lookupAction", new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                lookupButton.doClick(); // Simulate button click
+                lookupButton.doClick();
             }
         });
     }
@@ -69,9 +68,8 @@ public class DNSGUI extends JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a domain and select a type.");
             return;
         }
-
-        outputArea.setText(""); // Clear output area
-
+        
+        outputArea.setText("");
         // Run the DNS lookup in a separate thread to prevent GUI freezing
         new Thread(() -> {
             try {
@@ -96,7 +94,7 @@ public class DNSGUI extends JFrame {
     }
 
     public void appendEqualsLine(String text) {
-        appendColoredText(text, Color.GREEN); // Change the color of the equals line here
+        appendColoredText(text, Color.GREEN); 
     }
 
     static class TextAreaOutputStream extends OutputStream {
@@ -108,12 +106,11 @@ public class DNSGUI extends JFrame {
 
         @Override
         public void write(int b) {
-            // Convert the byte to char and insert it into JTextPane
             SwingUtilities.invokeLater(() -> {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    StyleConstants.setForeground(style, Color.WHITE); 
                     doc.insertString(doc.getLength(), String.valueOf((char) b), style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -123,13 +120,12 @@ public class DNSGUI extends JFrame {
 
         @Override
         public void write(byte[] b, int off, int len) {
-            // Convert the byte array to String and insert it into JTextPane
             String text = new String(b, off, len);
             SwingUtilities.invokeLater(() -> {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    StyleConstants.setForeground(style, Color.WHITE); 
                     doc.insertString(doc.getLength(), text, style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
