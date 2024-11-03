@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.io.OutputStream;
 import java.io.PrintStream;
-
 import org.xbill.DNS.TextParseException;
 
 public class DNSGUI extends JFrame {
@@ -66,15 +65,13 @@ public class DNSGUI extends JFrame {
         String type = (String) typeComboBox.getSelectedItem();
 
         if (domain.isEmpty() || type == null) {
-            JOptionPane.showMessageDialog(this, "Please enter a domain and select a type.");
+            JOptionPane.showMessageDialog(this, "Please enter a valid domain");
             return;
         }
 
         outputArea.setText("");
-        // Run the DNS lookup in a separate thread to prevent freezing !!!
         String finalDomain = domain;
         new Thread(() -> {
-
             try {
                 new DNS(finalDomain, type, outputArea);
             } catch (TextParseException e) {
@@ -92,12 +89,8 @@ public class DNSGUI extends JFrame {
         try {
             doc.insertString(doc.getLength(), text, style);
         } catch (BadLocationException e) {
-            e.printStackTrace();
+           throw new RuntimeException(e);
         }
-    }
-
-    public void appendEqualsLine(String text) {
-        appendColoredText(text, Color.GREEN);
     }
 
     static class TextAreaOutputStream extends OutputStream {
@@ -113,7 +106,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); 
+                    StyleConstants.setForeground(style, Color.WHITE);
                     doc.insertString(doc.getLength(), String.valueOf((char) b), style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -128,7 +121,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); 
+                    StyleConstants.setForeground(style, Color.WHITE);
                     doc.insertString(doc.getLength(), text, style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -147,5 +140,12 @@ public class DNSGUI extends JFrame {
             return domain.substring(HTTP.length()).trim().toLowerCase();
         }
         return domain.trim().toLowerCase();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            DNSGUI gui = new DNSGUI();
+            gui.setVisible(true);
+        });
     }
 }

@@ -50,6 +50,7 @@ public class DNS {
         }
         appendToTextPane("===================================================================================================\n", Color.WHITE);
     }
+
     private void appendToTextPane(String text, Color color) {
         SwingUtilities.invokeLater(() -> {
             try {
