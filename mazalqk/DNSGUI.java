@@ -73,7 +73,7 @@ public class DNSGUI extends JFrame {
         }
 
         outputArea.setText("");
-        // Run the DNS lookup in a separate thread to prevent GUI freezing
+        // Run the DNS lookup in a separate thread to prevent freezing
         new Thread(() -> {
             try {
                 new DNS(domain, type, outputArea);
@@ -84,8 +84,6 @@ public class DNSGUI extends JFrame {
             }
         }).start();
     }
-
-
 
     static class TextAreaOutputStream extends OutputStream {
         private final JTextArea textArea;
