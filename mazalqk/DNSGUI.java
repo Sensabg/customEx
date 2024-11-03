@@ -1,15 +1,14 @@
 import javax.swing.*;
+import javax.swing.text.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.io.OutputStream;
 import java.io.PrintStream;
 
 import org.xbill.DNS.TextParseException;
 
 public class DNSGUI extends JFrame {
-    private JTextArea outputArea;
+    private JTextPane outputArea; // Changed to JTextPane
     private JTextField domainField;
     private JComboBox<String> typeComboBox;
 
@@ -31,7 +30,7 @@ public class DNSGUI extends JFrame {
             try {
                 performLookup();
             } catch (TextParseException ex) {
-                outputArea.append("Error: Invalid domain format.\n");
+                appendColoredText("Error: Invalid domain format.\n", Color.RED);
             }
         });
 
@@ -43,22 +42,21 @@ public class DNSGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        outputArea = new JTextArea();
+        outputArea = new JTextPane(); // Initialize as JTextPane
         outputArea.setEditable(false);
+        outputArea.setBackground(Color.BLACK); // Set background color to black
+        outputArea.setForeground(Color.WHITE); // Set default text color to white
+
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
 
         System.setOut(new PrintStream(new TextAreaOutputStream(outputArea)));
 
+        // Key binding for the Enter key
         inputPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "lookupAction");
         inputPanel.getActionMap().put("lookupAction", new AbstractAction() {
             @Override
-            public boolean accept(Object sender) {
-                return super.accept(sender);
-            }
-
-            @Override
             public void actionPerformed(ActionEvent e) {
-                lookupButton.doClick();
+                lookupButton.doClick(); // Simulate button click
             }
         });
     }
@@ -72,34 +70,75 @@ public class DNSGUI extends JFrame {
             return;
         }
 
-        outputArea.setText("");
-        // Run the DNS lookup in a separate thread to prevent freezing
+        outputArea.setText(""); // Clear output area
+
+        // Run the DNS lookup in a separate thread to prevent GUI freezing
         new Thread(() -> {
             try {
                 new DNS(domain, type, outputArea);
             } catch (TextParseException e) {
-                outputArea.append("Error: Invalid domain format.\n");
+                appendColoredText("Error: Invalid domain format.\n", Color.RED);
             } catch (Exception e) {
-                outputArea.append("An error occurred during DNS lookup: " + e.getMessage() + "\n");
+                appendColoredText("An error occurred during DNS lookup: " + e.getMessage() + "\n", Color.RED);
             }
         }).start();
     }
 
-    static class TextAreaOutputStream extends OutputStream {
-        private final JTextArea textArea;
+    private void appendColoredText(String text, Color color) {
+        StyledDocument doc = outputArea.getStyledDocument();
+        Style style = outputArea.addStyle("Style", null);
+        StyleConstants.setForeground(style, color);
+        try {
+            doc.insertString(doc.getLength(), text, style);
+        } catch (BadLocationException e) {
+            e.printStackTrace();
+        }
+    }
 
-        public TextAreaOutputStream(JTextArea textArea) {
+    public void appendEqualsLine(String text) {
+        appendColoredText(text, Color.GREEN); // Change the color of the equals line here
+    }
+
+    static class TextAreaOutputStream extends OutputStream {
+        private final JTextPane textArea;
+
+        public TextAreaOutputStream(JTextPane textArea) {
             this.textArea = textArea;
         }
 
         @Override
         public void write(int b) {
-            textArea.append(String.valueOf((char) b));
+            // Convert the byte to char and insert it into JTextPane
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    StyledDocument doc = textArea.getStyledDocument();
+                    Style style = textArea.addStyle("Style", null);
+                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    doc.insertString(doc.getLength(), String.valueOf((char) b), style);
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            });
         }
 
         @Override
         public void write(byte[] b, int off, int len) {
-            textArea.append(new String(b, off, len));
+            // Convert the byte array to String and insert it into JTextPane
+            String text = new String(b, off, len);
+            SwingUtilities.invokeLater(() -> {
+                try {
+                    StyledDocument doc = textArea.getStyledDocument();
+                    Style style = textArea.addStyle("Style", null);
+                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    doc.insertString(doc.getLength(), text, style);
+                } catch (BadLocationException e) {
+                    e.printStackTrace();
+                }
+            });
         }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new DNSGUI().setVisible(true));
     }
 }

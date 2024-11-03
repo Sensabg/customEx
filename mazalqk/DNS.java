@@ -2,13 +2,19 @@ import org.xbill.DNS.*;
 import org.xbill.DNS.Record;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 
 public class DNS {
     private final int[] typesOfDNS = {Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME};
-    private JTextArea outputArea;
+    private JTextPane outputArea;
 
-    public DNS(String domain, String type, JTextArea outputArea) throws TextParseException {
+    public DNS(String domain, String type, JTextPane outputArea) throws TextParseException {
         this.outputArea = outputArea;
         performLookup(domain, type);
     }
@@ -30,14 +36,31 @@ public class DNS {
     }
 
     private void printRecords(String domain, String dnsRecord, List<Record> records) {
+        Color recordColor = Color.GREEN;
+        Color notFoundColor = Color.RED;
+
         if (records.isEmpty()) {
-            outputArea.append(dnsRecord + " not found for domain: " + domain + "\n");
+            appendToTextPane(dnsRecord + " not found for domain: " + domain + "\n", notFoundColor);
         } else {
-            outputArea.append(dnsRecord + " records for domain: " + domain + "\n");
+            appendToTextPane(dnsRecord + " records for domain: " + domain + "\n", recordColor);
             System.out.println();
-            records.forEach(record -> outputArea.append(record.rdataToString() + "\n"));
-            Text.setText("");
+            for (Record record : records) {
+                appendToTextPane(record.rdataToString() + "\n", Color.WHITE);
+            }
         }
+        appendToTextPane("===================================================================================================\n", Color.WHITE);
+    }
+    private void appendToTextPane(String text, Color color) {
+        SwingUtilities.invokeLater(() -> {
+            try {
+                StyledDocument doc = outputArea.getStyledDocument();
+                Style style = outputArea.addStyle("ColoredStyle", null);
+                StyleConstants.setForeground(style, color);
+                doc.insertString(doc.getLength(), text, style);
+            } catch (BadLocationException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     private static String getEntry(int entry) {
