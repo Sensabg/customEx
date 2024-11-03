@@ -3,12 +3,16 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
+
 import java.util.*;
 
 public class DNS {
     private final Scanner scanner = new Scanner(System.in);
     Input input;
     List<Record> records;
+    public static final String ANSI_RED = "\u001B[31m";
+    public static final String ANSI_RESET = "\u001B[0m";
+    public static final String ANSI_GREEN = "\u001B[32m";
 
     public DNS(Input input) throws TextParseException {
         this.setInput(input);
@@ -27,10 +31,14 @@ public class DNS {
                 String recordTypeName = Type.string(rt);
 
                 if (records.isEmpty()) {
+                    System.out.print(ANSI_RED);
                     System.out.println(System.lineSeparator() + recordTypeName + " not found for domain: " + domain);
+                    System.out.print(ANSI_RESET);
                     break;
                 }
+                System.out.print(ANSI_GREEN);
                 System.out.println("\n" + recordTypeName + " records for domain: " + domain);
+                System.out.print(ANSI_RESET);
                 records.forEach(
                         record -> System.out.println(record.rdataToString()));
             }
@@ -38,9 +46,13 @@ public class DNS {
             List<Record> records = getRecords(domain, entry);
 
             if (records.isEmpty()) {
+                System.out.print(ANSI_RED);
                 System.out.println(System.lineSeparator() + dnsRecord + " not found for domain: " + domain);
+                System.out.print(ANSI_RESET);
             } else {
+                System.out.print(ANSI_GREEN);
                 System.out.println("\n" + dnsRecord + " records for domain: " + domain);
+                System.out.print(ANSI_RESET);
                 records.forEach(
                         record -> System.out.println(record.rdataToString()));
             }
@@ -81,20 +93,12 @@ public class DNS {
         };
     }
 
+
     private static List<Record> getRecords(String domain, int recordType) throws TextParseException {
         Record[] records = new Lookup(domain, recordType).run();
         return records != null ? Arrays.asList(records) : Collections.emptyList();
     }
 }
-
-
-
-
-
-
-
-
-
 
 //       String dnsRecord;
 ////        try {
