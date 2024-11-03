@@ -3,7 +3,6 @@ import org.xbill.DNS.Record;
 import org.xbill.DNS.TextParseException;
 import org.xbill.DNS.Type;
 
-
 import java.util.*;
 
 public class DNS {
@@ -82,12 +81,20 @@ public class DNS {
         };
     }
 
-
     private static List<Record> getRecords(String domain, int recordType) throws TextParseException {
         Record[] records = new Lookup(domain, recordType).run();
         return records != null ? Arrays.asList(records) : Collections.emptyList();
     }
 }
+
+
+
+
+
+
+
+
+
 
 //       String dnsRecord;
 ////        try {
