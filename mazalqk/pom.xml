@@ -22,6 +22,11 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>17.0.2</version> <!-- Replace with your version -->
+        </dependency>
 
 
             <dependency>
