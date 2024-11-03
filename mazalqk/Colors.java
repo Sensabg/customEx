@@ -5,4 +5,9 @@ public class Colors {
 
     private Colors() {}
 
+    static void setColor(String domain, String dnsRecord, String color, String text) {
+        System.out.print(color);
+        System.out.println(text);
+        System.out.print(Colors.ANSI_RESET);
+    }
 }
