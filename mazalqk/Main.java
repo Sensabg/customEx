@@ -1,7 +1,9 @@
 import org.xbill.DNS.TextParseException;
 
+import javax.swing.*;
+
 public class Main {
-    public static void main(String[] args) throws TextParseException {
-        DNS dns = new DNS(new Input());
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> new DNSGUI().setVisible(true));
     }
 }

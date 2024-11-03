@@ -1,21 +1,19 @@
-import org.xbill.DNS.Lookup;
+import org.xbill.DNS.*;
 import org.xbill.DNS.Record;
-import org.xbill.DNS.TextParseException;
-import org.xbill.DNS.Type;
 
+import javax.swing.*;
 import java.util.*;
 
 public class DNS {
     private final int[] typesOfDNS = {Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME};
-    Input input;
+    private JTextArea outputArea;
 
-    public DNS(Input input) throws TextParseException {
-        this.setInput(input);
+    public DNS(String domain, String type, JTextArea outputArea) throws TextParseException {
+        this.outputArea = outputArea;
+        performLookup(domain, type);
     }
 
-    public void setInput(Input input) throws TextParseException {
-        String domain = input.getDomain();
-        String type = input.getType();
+    private void performLookup(String domain, String type) throws TextParseException {
         int entry = getType(type);
         String dnsRecord = getEntry(entry);
 
@@ -29,20 +27,16 @@ public class DNS {
             List<Record> records = getRecords(domain, entry);
             printRecords(domain, dnsRecord, records);
         }
-        this.input = input;
     }
 
     private void printRecords(String domain, String dnsRecord, List<Record> records) {
         if (records.isEmpty()) {
-            Colors.setColor(Colors.ANSI_RED,  dnsRecord + " not found for domain: " + domain + " ");
-            System.out.print(Colors.ANSI_YELLOW);
-            System.out.println("\n===================================================================================================");
-            System.out.print(Colors.ANSI_RESET);
+            outputArea.append(dnsRecord + " not found for domain: " + domain + "\n");
         } else {
-            System.out.print("".trim());
-            Colors.setColor(Colors.ANSI_GREEN,   dnsRecord + " records for domain: " + domain + " ");
-            System.out.println("".trim());
-            records.forEach(record -> System.out.println(record.rdataToString()));
+            outputArea.append(dnsRecord + " records for domain: " + domain + "\n");
+            System.out.println();
+            records.forEach(record -> outputArea.append(record.rdataToString() + "\n"));
+            Text.setText("");
         }
     }
 
