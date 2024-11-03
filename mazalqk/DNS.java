@@ -6,12 +6,7 @@ import org.xbill.DNS.Type;
 import java.util.*;
 
 public class DNS {
-    private final int[] typesOfDNS = new int[]{Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME};
-    private final Scanner scanner = new Scanner(System.in);
-    private static String color;
-    private static String reset;
-    List<Record> records;
-    String text;
+    private final int[] typesOfDNS = {Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME};
     Input input;
 
     public DNS(Input input) throws TextParseException {
@@ -38,20 +33,17 @@ public class DNS {
     }
 
     private void printRecords(String domain, String dnsRecord, List<Record> records) {
-        text = String.format("\n" + dnsRecord + " records for domain: " + domain);
-        if (itContains(records, dnsRecord, domain, text)) {
-            Colors.setColor(domain, dnsRecord, Colors.ANSI_GREEN, text);
+        if (records.isEmpty()) {
+            Colors.setColor(Colors.ANSI_RED,  dnsRecord + " not found for domain: " + domain + " ");
+            System.out.print(Colors.ANSI_YELLOW);
+            System.out.println("\n===================================================================================================");
+            System.out.print(Colors.ANSI_RESET);
+        } else {
+            System.out.print("".trim());
+            Colors.setColor(Colors.ANSI_GREEN,   dnsRecord + " records for domain: " + domain + " ");
+            System.out.println("".trim());
             records.forEach(record -> System.out.println(record.rdataToString()));
         }
-    }
-
-    private static boolean itContains(List<Record> records, String recordTypeName, String domain, String text) {
-        text = String.format(System.lineSeparator() + recordTypeName + " not found for domain: " + domain);
-        if (records.isEmpty()) {
-            Colors.setColor(domain, recordTypeName, Colors.ANSI_RED, text);
-            return false;
-        }
-        return true;
     }
 
     private static String getEntry(int entry) {

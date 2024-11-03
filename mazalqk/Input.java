@@ -2,44 +2,38 @@ import java.util.Scanner;
 
 public class Input {
     private final Scanner scanner = new Scanner(System.in);
-    String domain;
-    String type;
-    String text;
+    private String domain;
+    private String type;
 
     public Input() {
-        this.setDomain(domain);
-        this.setType(type);
+        this.setDomain();
+        this.setType();
     }
 
-    public void setDomain(String domain) {
+    public void setDomain() {
         final String HTTP = "http//";
         final String HTTPS = "https//";
-        text = "Please enter a domain name: ";
 
-        Colors.setColor(domain, type, Colors.ANSI_GREEN, text);
-        domain = scanner.nextLine();
-        String formatedDomain = domain;
+        Colors.setColor(Colors.ANSI_GREEN, "Please enter a domain name: ");
+        String inputDomain = scanner.nextLine();
 
-        if (domain.contains(HTTPS)) {
-            formatedDomain = domain.replaceAll(HTTPS, "");
-        } else if (domain.contains(HTTP)) {
-            formatedDomain = domain.replaceAll(HTTP, "");
+        if (inputDomain.contains(HTTPS)) {
+            inputDomain = inputDomain.replaceAll(HTTPS, "");
+        } else if (inputDomain.contains(HTTP)) {
+            inputDomain = inputDomain.replaceAll(HTTP, "");
         }
-
-        this.domain = formatedDomain.trim().toLowerCase();
+        this.domain = inputDomain.trim().toLowerCase();
     }
 
-    public void setType(String type) {
-        text = "A, MX, NS, TXT, SOA, CNAME:\nPlease enter a type: ";
-        Colors.setColor(domain, type, Colors.ANSI_GREEN, text);
-        type = scanner.nextLine().toUpperCase();
-        RecordType record = RecordType.fromString(type);
+    public void setType() {
+        Colors.setColor(Colors.ANSI_GREEN, "A, MX, NS, TXT, SOA, CNAME:\nPlease enter a type: ");
+        String inputType = scanner.nextLine().toUpperCase();
+        RecordType record = RecordType.fromString(inputType);
 
         while (record == RecordType.INVALID) {
-            text = "Please enter a valid type: ";
-            type = scanner.nextLine().toUpperCase();
-            Colors.setColor(domain, type, Colors.ANSI_RED, text);
-            record = RecordType.fromString(type);
+            Colors.setColor(Colors.ANSI_RED, "Please enter a valid type: ");
+            inputType = scanner.nextLine().toUpperCase();
+            record = RecordType.fromString(inputType);
         }
         this.type = record.toString().toUpperCase();
     }
