@@ -71,7 +71,7 @@ public class DNSGUI extends JFrame {
         }
 
         outputArea.setText("");
-        // Run the DNS lookup in a separate thread to prevent GUI freezing
+        // Run the DNS lookup in a separate thread to prevent freezing !!!
         String finalDomain = domain;
         new Thread(() -> {
 
@@ -113,7 +113,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    StyleConstants.setForeground(style, Color.WHITE); 
                     doc.insertString(doc.getLength(), String.valueOf((char) b), style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -128,7 +128,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
+                    StyleConstants.setForeground(style, Color.WHITE); 
                     doc.insertString(doc.getLength(), text, style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
