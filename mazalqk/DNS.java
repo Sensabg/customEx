@@ -7,12 +7,13 @@ import org.xbill.DNS.Type;
 import java.util.*;
 
 public class DNS {
+    private static String color;
+    private static String reset;
+    String text;
     private final Scanner scanner = new Scanner(System.in);
+    private final int[] typesOfDNS = new int[]{Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME};
     Input input;
     List<Record> records;
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_RESET = "\u001B[0m";
-    public static final String ANSI_GREEN = "\u001B[32m";
 
     public DNS(Input input) throws TextParseException {
         this.setInput(input);
@@ -21,43 +22,48 @@ public class DNS {
     public void setInput(Input input) throws TextParseException {
         String domain = input.getDomain();
         String type = input.getType();
-
         int entry = getType(type);
         String dnsRecord = getEntry(entry);
 
         if (entry == 0) {
-            for (int rt : new int[]{Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME}) {
-                List<Record> records = getRecords(domain, rt);
-                String recordTypeName = Type.string(rt);
-
-                if (records.isEmpty()) {
-                    System.out.print(ANSI_RED);
-                    System.out.println(System.lineSeparator() + recordTypeName + " not found for domain: " + domain);
-                    System.out.print(ANSI_RESET);
-                    break;
-                }
-                System.out.print(ANSI_GREEN);
-                System.out.println("\n" + recordTypeName + " records for domain: " + domain);
-                System.out.print(ANSI_RESET);
-                records.forEach(
-                        record -> System.out.println(record.rdataToString()));
+            for (int dns : typesOfDNS) {
+                List<Record> records = getRecords(domain, dns);
+                dnsRecord = getEntry(dns);
+                printRecords(domain, dnsRecord, records, Colors.ANSI_GREEN, Colors.ANSI_RESET);
             }
         } else {
             List<Record> records = getRecords(domain, entry);
-
-            if (records.isEmpty()) {
-                System.out.print(ANSI_RED);
-                System.out.println(System.lineSeparator() + dnsRecord + " not found for domain: " + domain);
-                System.out.print(ANSI_RESET);
-            } else {
-                System.out.print(ANSI_GREEN);
-                System.out.println("\n" + dnsRecord + " records for domain: " + domain);
-                System.out.print(ANSI_RESET);
-                records.forEach(
-                        record -> System.out.println(record.rdataToString()));
-            }
+            printRecords(domain, dnsRecord, records, Colors.ANSI_GREEN, Colors.ANSI_RESET);
         }
         this.input = input;
+    }
+
+    private void printRecords(String domain, String dnsRecord, List<Record> records, String color, String reset) {
+        DNS.color = color;
+        DNS.reset = reset;
+        if (itContains(records, dnsRecord, domain, text)) {
+            setColor(domain, dnsRecord, color, reset, text);
+            records.forEach(
+                    record -> System.out.println(record.rdataToString()));
+        }
+    }
+
+    private static boolean itContains(List<Record> records, String recordTypeName, String domain, String text) {
+        text = String.format(System.lineSeparator() + recordTypeName + " not found for domain: " + domain);
+        if (records.isEmpty()) {
+            setColor(domain, recordTypeName, Colors.ANSI_RED, Colors.ANSI_RESET, text);
+            return false;
+        }
+        return true;
+    }
+
+    private static void setColor(String domain, String dnsRecord, String color, String reset, String text) {
+        DNS.color = color;
+        DNS.reset = reset;
+        text = String.format("\n" + dnsRecord + " records for domain: " + domain);
+        System.out.print(DNS.color);
+        System.out.println(text);
+        System.out.print(DNS.reset = reset);
     }
 
     private static String getEntry(int entry) {
@@ -70,14 +76,6 @@ public class DNS {
             case Type.CNAME -> "CNAME";
             default -> "INVALID";
         };
-    }
-
-    private static boolean isValid(int entry) {
-        return switch (entry) {
-            case Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME, 0 -> true;
-            default -> false;
-        };
-
     }
 
     private static int getType(String type) {
@@ -93,12 +91,18 @@ public class DNS {
         };
     }
 
-
     private static List<Record> getRecords(String domain, int recordType) throws TextParseException {
         Record[] records = new Lookup(domain, recordType).run();
         return records != null ? Arrays.asList(records) : Collections.emptyList();
     }
 }
+
+
+//   private static boolean isValid(int entry) {
+//        return switch (entry) {
+//            case Type.A, Type.MX, Type.NS, Type.TXT, Type.SOA, Type.CNAME, 0 -> true;
+//            default -> false;
+//        };
 
 //       String dnsRecord;
 ////        try {
