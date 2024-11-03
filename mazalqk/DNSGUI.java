@@ -8,7 +8,7 @@ import java.io.PrintStream;
 import org.xbill.DNS.TextParseException;
 
 public class DNSGUI extends JFrame {
-    private JTextPane outputArea; 
+    private JTextPane outputArea;
     private JTextField domainField;
     private JComboBox<String> typeComboBox;
 
@@ -42,15 +42,15 @@ public class DNSGUI extends JFrame {
 
         add(inputPanel, BorderLayout.NORTH);
 
-        outputArea = new JTextPane(); 
+        outputArea = new JTextPane();
         outputArea.setEditable(false);
-        outputArea.setBackground(Color.BLACK); 
+        outputArea.setBackground(Color.BLACK);
         outputArea.setForeground(Color.WHITE);
 
         add(new JScrollPane(outputArea), BorderLayout.CENTER);
 
         System.setOut(new PrintStream(new TextAreaOutputStream(outputArea)));
-        
+
         inputPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("ENTER"), "lookupAction");
         inputPanel.getActionMap().put("lookupAction", new AbstractAction() {
             @Override
@@ -62,18 +62,21 @@ public class DNSGUI extends JFrame {
 
     private void performLookup() throws TextParseException {
         String domain = domainField.getText().trim();
+        domain = cleanDomain(domain);
         String type = (String) typeComboBox.getSelectedItem();
 
         if (domain.isEmpty() || type == null) {
             JOptionPane.showMessageDialog(this, "Please enter a domain and select a type.");
             return;
         }
-        
+
         outputArea.setText("");
         // Run the DNS lookup in a separate thread to prevent GUI freezing
+        String finalDomain = domain;
         new Thread(() -> {
+
             try {
-                new DNS(domain, type, outputArea);
+                new DNS(finalDomain, type, outputArea);
             } catch (TextParseException e) {
                 appendColoredText("Error: Invalid domain format.\n", Color.RED);
             } catch (Exception e) {
@@ -94,7 +97,7 @@ public class DNSGUI extends JFrame {
     }
 
     public void appendEqualsLine(String text) {
-        appendColoredText(text, Color.GREEN); 
+        appendColoredText(text, Color.GREEN);
     }
 
     static class TextAreaOutputStream extends OutputStream {
@@ -110,7 +113,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); 
+                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
                     doc.insertString(doc.getLength(), String.valueOf((char) b), style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -125,7 +128,7 @@ public class DNSGUI extends JFrame {
                 try {
                     StyledDocument doc = textArea.getStyledDocument();
                     Style style = textArea.addStyle("Style", null);
-                    StyleConstants.setForeground(style, Color.WHITE); 
+                    StyleConstants.setForeground(style, Color.WHITE); // Set desired color
                     doc.insertString(doc.getLength(), text, style);
                 } catch (BadLocationException e) {
                     e.printStackTrace();
@@ -134,7 +137,15 @@ public class DNSGUI extends JFrame {
         }
     }
 
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new DNSGUI().setVisible(true));
+    private String cleanDomain(String domain) {
+        final String HTTP = "http://";
+        final String HTTPS = "https://";
+
+        if (domain.startsWith(HTTPS)) {
+            return domain.substring(HTTPS.length()).trim().toLowerCase();
+        } else if (domain.startsWith(HTTP)) {
+            return domain.substring(HTTP.length()).trim().toLowerCase();
+        }
+        return domain.trim().toLowerCase();
     }
 }

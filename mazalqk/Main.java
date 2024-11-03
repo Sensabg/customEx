@@ -1,5 +1,3 @@
-import org.xbill.DNS.TextParseException;
-
 import javax.swing.*;
 
 public class Main {
