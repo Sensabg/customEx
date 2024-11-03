@@ -16,7 +16,6 @@ public class Input {
         final String HTTPS = "https//";
         text = "Please enter a domain name: ";
 
-
         Colors.setColor(domain, type, Colors.ANSI_GREEN, text);
         domain = scanner.nextLine();
         String formatedDomain = domain;
