@@ -52,7 +52,7 @@ JSON: Data interchange format for communication between client and server
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/yourusername/dns-lookup-tool.git
+git clone https://github.com/Sensabg/customEx/tree/main/java
 cd dns-lookup-tool
-
+```
 
