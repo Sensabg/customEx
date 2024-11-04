@@ -1,6 +1,6 @@
 # Structure 
 
-
+```sh
 DNS
 ├── src/  
 │ㅤㅤㅤ└── main/        
@@ -15,7 +15,7 @@ DNS
 ㅤㅤㅤ└── records/    
 ㅤㅤㅤㅤㅤㅤㅤ└── newFile.html
 
-
+```
 # Another DNS Lookup Tool
 
 Built using Java for the client-side and PHP for the server-side, this application enables real-time DNS record retrieval and displays results dynamically in a user-friendly graphical interface.
