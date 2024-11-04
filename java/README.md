@@ -38,7 +38,7 @@ JSON Data interchange: For communication between client and server
 1. This application allows users to perform DNS lookups.
 2. Real-time updates.
 3. Sends a JSON request to a remote server.
-4. Accepts & processeses the request by a PHP file configured on the server.
+4. The server accepts & processes the request by a PHP file.
 5. Transforms the JSON request into an HTML format for easy access and reference.
 6. Saves the HTML-generated files for future use in a specific directory.
 7. Error handling for invalid domains and record types. ( not finished yet ).
