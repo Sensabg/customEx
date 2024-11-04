@@ -60,5 +60,5 @@ JSON Data interchange: For communication between client and server
 
 ```bash
 git clone https://github.com/Sensabg/customEx/tree/main/java
-cd dns-lookup-tool
+cd customEx
 ```
