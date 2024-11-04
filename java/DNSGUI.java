@@ -93,9 +93,3 @@ public class DNSGUI extends JFrame {
         }
     }
 }
-    // public static void main(String[] args) {
-    //     SwingUtilities.invokeLater(() -> {
-    //         DNSGUI gui = new DNSGUI();
-    //         gui.setVisible(true);
-    //     });
-    // }
