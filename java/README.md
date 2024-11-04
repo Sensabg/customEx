@@ -1,19 +1,19 @@
+# Structure 
+
 
 DNS
 ├── src/  
-│   └── main/        
-│       └── src/
-│           ├── DNS.java       
-│           ├── DNSGUI.java    
-│           ├── Main.java
-│           └── pom.xml
+│ㅤㅤㅤ└── main/        
+│ㅤㅤㅤㅤㅤㅤㅤㅤ└── src/
+│ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNS.java       
+│ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNSGUI.java    
+│ㅤㅤㅤㅤㅤㅤㅤㅤ├── Main.java
+│ㅤㅤㅤㅤㅤㅤㅤㅤ└── pom.xml
 │
 └── server/           
-    ├── dnsReceiver.php 
-    └── records/    
-        └── newFile.html
-</pre>
-
+ㅤㅤㅤ├── dnsReceiver.php 
+ㅤㅤㅤ└── records/    
+ㅤㅤㅤㅤㅤㅤㅤ└── newFile.html
 
 
 # Another DNS Lookup Tool
