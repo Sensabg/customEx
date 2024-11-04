@@ -7,7 +7,7 @@ Real-time DNS record retrieval.
 DNS
 ├── src/  
 │ㅤㅤㅤ└── main/        
-│ㅤㅤㅤㅤㅤㅤㅤㅤ└── src/
+│ㅤㅤㅤㅤㅤㅤㅤㅤ└── java/
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNS.java       
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNSGUI.java    
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── Main.java
