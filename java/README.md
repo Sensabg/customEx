@@ -33,8 +33,9 @@ JSON: Data interchange format for communication between client and server
 
 2. The tool also saves the results in an HTML format for easy access and reference.
 
-[![Watch the video](https://github.com/Sensabg/customEx/edit/main/java/media/video.mov)
-![Another screenshot](path/to/screenshot2.png)
+## Start
+
+![Beginning](https://github.com/Sensabg/customEx/blob/main/java/media/no%20records.png])
 
 ## Features
 
