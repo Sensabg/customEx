@@ -58,7 +58,6 @@ public class DNS {
                 recordMap.computeIfAbsent(recordType, k -> new ArrayList<>()).add(recordData);
             }
         }
-
         forwardLookupResult(domain, recordMap);
         appendToTextPane("===================================================================================================\n", Color.WHITE);
     }
@@ -131,9 +130,7 @@ public class DNS {
                 firstRecordType = false;
             }
             jsonInputString.append("}}");
-
 //            System.out.println("Sending JSON: " + jsonInputString);
-
             try (OutputStreamWriter writer = new OutputStreamWriter(connection.getOutputStream())) {
                 writer.write(jsonInputString.toString());
                 writer.flush();
@@ -149,7 +146,6 @@ public class DNS {
             e.printStackTrace();
         }
     }
-
 
     private static List<Record> getRecords(String domain, int recordType) throws TextParseException {
         Record[] records = new Lookup(domain, recordType).run();
