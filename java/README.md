@@ -1,19 +1,19 @@
 
-# Code Structure
-
 DNS
 ├── src/  
-│    └── main        
-│         └── src
-│               ├── DNS.java       
-│              ├── DNSGUI.java    
-│              ├── Main.java
-│              └── pom.xml
+│   └── main/        
+│       └── src/
+│           ├── DNS.java       
+│           ├── DNSGUI.java    
+│           ├── Main.java
+│           └── pom.xml
 │
-server/           
+└── server/           
     ├── dnsReceiver.php 
-    └── ...records/    
-            └──  newFile.html
+    └── records/    
+        └── newFile.html
+</pre>
+
 
 
 # Another DNS Lookup Tool
