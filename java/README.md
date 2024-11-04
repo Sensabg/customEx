@@ -1,3 +1,7 @@
+# Another DNS Lookup Tool
+Real-time DNS record retrieval.
+
+
 # Structure 
 
 ```sh
@@ -16,47 +20,41 @@ DNS
 ㅤㅤㅤㅤㅤㅤㅤ└── newFile.html
 
 ```
-# Another DNS Lookup Tool
-
-Built using Java for the client-side and PHP for the server-side, this application enables real-time DNS record retrieval and displays results dynamically in a user-friendly graphical interface.
-
 # Technologies Used
 
-Frontend: Java (Swing)
-A bit of server-side PHP
-Java xbill DNS library
-JSON: Data interchange format for communication between client and server
+Java handles the entire logic.
+Due to server restrictions, I was obligated to handle the receiving logic with PHP.
+Popular libraries used - Java xbill DNS library, Swing, java.net.
+JSON Data interchange: For communication between client and server
 
 # Features
 
-1. This application allows users to perform DNS lookups for various record types (A, MX, NS, TXT, SOA, CNAME) and view the results in a visually appealing graphical interface. 
-
-2. The tool also saves the results in an HTML format for easy access and reference.
+1. This application allows users to perform DNS lookups.
+2. Real-time updates.
+3. Sends a JSON request to a remote server.
+4. Accepts & processeses the request by a PHP file configured on the server.
+5. Transforms the JSON request into an HTML format for easy access and reference.
+6. Saves the HTML-generated files for future use in a specific directory.
+7. Error handling for invalid domains and record types. ( not finished yet ).
 
 ## Start
 
-![Beginning](media/StartGUI.png)
-
-# Features
-
-- Perform DNS lookups for multiple record types ( A, MX, NS, TXT, SOA, CNAME ).
-- Real-time updates of DNS records.
-- User-friendly graphical interface built with Swing. 
-- Results are saved in an HTML file on a remote server via JSON request for each domain lookup.
-- Error handling for invalid domains and record types.
+<img src = "media/StartGUI.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 600px; height: 500px;">
 
 ## Record Types
 
-![Mid](media/recordTYPE.png)
-
-### Additional details
-
-- Java Development Kit (JDK) 17 or higher
-- Maven for dependency management.
+<img src="media/recordTYPE.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 600px; height: 500px;">
 
 ## Search all records
 
-![End](media/Allrecordsexample.png)
+<img src = "media/Allrecordsexample.png" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 600px; height: 500px;">
+
+### Additional details
+
+- (JDK) 17 or higher.
+- Maven for dependency management.
+
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExaWY3MTF3bDYycDk4dWlwbG11cThqdXh4aHpveTVjdHFndHZobmNsNSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/XwWtfxSp4DZs6zdTme/giphy.gif" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 750px; height: 500px;">
 
 ### Clone the Repository
 
@@ -64,5 +62,3 @@ JSON: Data interchange format for communication between client and server
 git clone https://github.com/Sensabg/customEx/tree/main/java
 cd dns-lookup-tool
 ```
-
-<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTVsajZxeWE3aGRmYmg3d2tldDBrZnNudXFxcWk4M2FsYjN5am1sZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VYyoLCOL9XAuUevGx9/giphy.gif" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 1000px; height: 600px;">
