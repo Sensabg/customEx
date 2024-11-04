@@ -35,7 +35,7 @@ JSON: Data interchange format for communication between client and server
 
 ## Start
 
-![Beginning](https://github.com/Sensabg/customEx/blob/main/java/media/no%20records.png])
+![Beginning](/customEx/blob/main/java/media/no%20records.png])
 
 ## Features
 
