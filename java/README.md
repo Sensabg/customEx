@@ -35,7 +35,7 @@ JSON: Data interchange format for communication between client and server
 
 ## Start
 
-![Beginning](media/no%20records.png)
+![Beginning](media/StartGUI.png)
 
 ## Features
 
