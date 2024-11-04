@@ -1,7 +1,6 @@
 # Another DNS Lookup Tool
 Real-time DNS record retrieval.
 
-
 # Structure 
 
 ```sh
@@ -12,14 +11,15 @@ DNS
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNS.java       
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNSGUI.java    
 │ㅤㅤㅤㅤㅤㅤㅤㅤ├── Main.java
+│ㅤㅤㅤㅤㅤㅤㅤㅤ├── TextAreaOutputStream.java
 │ㅤㅤㅤㅤㅤㅤㅤㅤ└── pom.xml
 │
 └── server/           
 ㅤㅤㅤ├── dnsReceiver.php 
 ㅤㅤㅤ└── records/    
 ㅤㅤㅤㅤㅤㅤㅤ└── newFile.html
-
 ```
+
 # Technologies Used
 
 Java handles the entire logic.
