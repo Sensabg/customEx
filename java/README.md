@@ -37,7 +37,7 @@ JSON: Data interchange format for communication between client and server
 
 ![Beginning](media/StartGUI.png)
 
-## Features
+# Features
 
 - Perform DNS lookups for multiple record types ( A, MX, NS, TXT, SOA, CNAME ).
 - Real-time updates of DNS records.
@@ -45,10 +45,18 @@ JSON: Data interchange format for communication between client and server
 - Results are saved in an HTML file on a remote server via JSON request for each domain lookup.
 - Error handling for invalid domains and record types.
 
-### Prerequisites
+## Record Types
+
+![Mid](media/recordTYPE.png)
+
+### Additional details
 
 - Java Development Kit (JDK) 17 or higher
 - Maven for dependency management.
+
+## Search all records
+
+![End](media/Allrecordsexample.png)
 
 ### Clone the Repository
 
@@ -57,3 +65,4 @@ git clone https://github.com/Sensabg/customEx/tree/main/java
 cd dns-lookup-tool
 ```
 
+<img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExdTVsajZxeWE3aGRmYmg3d2tldDBrZnNudXFxcWk4M2FsYjN5am1sZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/VYyoLCOL9XAuUevGx9/giphy.gif" alt="Alt text" title="Optional title" style="display: inline-block; margin: auto; width: 1000px; height: 600px;">
