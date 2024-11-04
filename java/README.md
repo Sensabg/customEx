@@ -1,14 +1,20 @@
 
 # Code Structure
 
-dns-lookup-tool/
-├── src/                # Java source files
-│   ├── DNS.java       # DNS lookup logic
-│   ├── DNSGUI.java     # GUI implementation
-│   └── ...
-└── server/            # PHP backend files
-    ├── dnsReceiver.php # Handles DNS queries and stores results
-    └── ...
+DNS
+├── src/  
+│    └── main        
+│         └── src
+│               ├── DNS.java       
+│              ├── DNSGUI.java    
+│              ├── Main.java
+│              └── pom.xml
+│
+server/           
+    ├── dnsReceiver.php 
+    └── ...records/    
+            └──  newFile.html
+
 
 # Another DNS Lookup Tool
 
