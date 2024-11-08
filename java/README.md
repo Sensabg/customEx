@@ -13,17 +13,17 @@ In fact, the only thing they have in common is their name (Qchecker) and purpose
 DNS
 ├── src/  
 │ㅤㅤㅤ└── main/        
-│ㅤㅤㅤㅤㅤㅤㅤㅤ└── java/
-│ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNS.java       
-│ㅤㅤㅤㅤㅤㅤㅤㅤ├── DNSGUI.java    
-│ㅤㅤㅤㅤㅤㅤㅤㅤ├── Main.java
-│ㅤㅤㅤㅤㅤㅤㅤㅤ├── TextAreaOutputStream.java
-│ㅤㅤㅤㅤㅤㅤㅤㅤ└── pom.xml
+│ㅤㅤㅤㅤㅤㅤㅤ└── java/
+│ㅤㅤㅤㅤㅤㅤㅤ      ├── DNS.java       
+│ㅤㅤㅤㅤㅤㅤㅤ      ├── DNSGUI.java    
+│ㅤㅤㅤㅤㅤㅤㅤ      ├── Main.java
+│ㅤㅤㅤㅤㅤㅤㅤ      ├── TextAreaOutputStream.java
+│ㅤㅤㅤㅤㅤㅤㅤ      └── pom.xml
 │
 └── server/           
-ㅤㅤㅤ├── dnsReceiver.php 
-ㅤㅤㅤ└── records/    
-ㅤㅤㅤㅤㅤㅤㅤ└── newFile.html
+ㅤㅤㅤ  ├── dnsReceiver.php 
+ㅤㅤㅤ  └── records/    
+ㅤㅤㅤㅤㅤㅤㅤ   └── newFile.html
 ```
 
 # Technologies Used
