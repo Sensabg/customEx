@@ -29,7 +29,7 @@ DNS
 # Technologies Used
 
 Java,
-Java xbill DNS library, 
+xbill DNS library, 
 Swing, 
 java.net,
 JSON Data interchange,
