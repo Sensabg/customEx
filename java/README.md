@@ -28,10 +28,13 @@ DNS
 
 # Technologies Used
 
-Java handles the entire logic.
-Due to server restrictions, I was obligated to handle the receiving logic with PHP.
-Popular libraries used - Java xbill DNS library, Swing, java.net.
-JSON Data interchange - for communication between client and server.
+Java,
+Java xbill DNS library, 
+Swing, 
+java.net,
+JSON Data interchange,
+PHP.
+
 
 # Features
 
