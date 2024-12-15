@@ -1,11 +1,8 @@
 # Desktop application, real-time DNS record checker.
 
-In other words that's the desktop version of my already existing DNS checker browser extension which you can review below:
+## Desktop version of my already existing DNS checker browser extension which you can review below:
 
- [this detailed report](https://github.com/Sensabg/DNS-Qchecker/).
-
-Of course, there are a lot of differences, starting with the programming language. 
-In fact, the only thing they have in common is their name (Qchecker) and purpose but they achieve the same goal in different ways.
+ [this.doc](https://github.com/Sensabg/DNS-Qchecker/).
 
 # Structure 
 
@@ -32,7 +29,7 @@ Java,
 xbill DNS library, 
 Swing, 
 java.net,
-JSON Data interchange,
+JSON,
 PHP.
 
 
